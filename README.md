@@ -1,4 +1,4 @@
-# RLM-jupyter
+# jupyterhub-tutorials
 
 Multi-user JupyterHub deployment for a hands-on **[Recursive Language Models (RLM)](https://github.com/alexzhang13/rlm)** tutorial.
 
