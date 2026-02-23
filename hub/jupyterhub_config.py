@@ -33,6 +33,23 @@ c.JupyterHub.hub_connect_ip = "jupyterhub"
 c.DockerSpawner.remove = True  # remove containers when they stop
 
 # ---------------------------------------------------------------------------
+# Pass LLM API keys into user containers
+# ---------------------------------------------------------------------------
+env_vars_to_pass = [
+    "OPENAI_API_KEY",
+    "OPENAI_MODEL",
+    "ANTHROPIC_API_KEY",
+    "ANTHROPIC_MODEL",
+    "PORTKEY_API_KEY",
+    "PORTKEY_MODEL",
+    "OPENROUTER_API_KEY",
+    "VLLM_BASE_URL",
+]
+c.DockerSpawner.environment = {
+    k: os.environ[k] for k in env_vars_to_pass if os.environ.get(k)
+}
+
+# ---------------------------------------------------------------------------
 # Resource limits per user
 # ---------------------------------------------------------------------------
 mem_limit = os.environ.get("MEM_LIMIT", "512M")

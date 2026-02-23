@@ -20,6 +20,15 @@ services:
       MEM_LIMIT: ${MEM_LIMIT:-512M}
       # CPU limit per user (default 1.0 CPU)
       CPU_LIMIT: ${CPU_LIMIT:-1.0}
+      # LLM API keys — passed through to user containers
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-}
+      PORTKEY_API_KEY: ${PORTKEY_API_KEY:-}
+      PORTKEY_MODEL: ${PORTKEY_MODEL:-}
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+      VLLM_BASE_URL: ${VLLM_BASE_URL:-}
     networks:
       - default
 

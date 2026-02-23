@@ -1,15 +1,8 @@
 FROM jupyter/scipy-notebook:latest
 
-USER root
-
-# Install system dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    graphviz \
-    && rm -rf /var/lib/apt/lists/*
-
 USER ${NB_UID}
 
-# Install Python packages for the RLM tutorial
+# Install the RLM library and tutorial dependencies
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
 

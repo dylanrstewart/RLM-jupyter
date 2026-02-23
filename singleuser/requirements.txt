@@ -1,14 +1,6 @@
-torch>=2.0
-torchvision
-transformers>=4.30
-datasets
-tokenizers
-accelerate
-sentencepiece
-protobuf
-graphviz
+rlms>=0.1.1
+python-dotenv>=1.2.1
 matplotlib
-seaborn
 pandas
 numpy
 ipywidgets
