@@ -205,3 +205,11 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# JupyterHub
+jupyterhub_cookie_secret
+jupyterhub.sqlite
+jupyterhub_config.py.bak
+
+# Docker
+.env

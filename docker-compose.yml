@@ -1,0 +1,50 @@
+version: "3.9"
+
+services:
+  jupyterhub:
+    build:
+      context: ./hub
+      dockerfile: Dockerfile
+    container_name: jupyterhub
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - jupyterhub-data:/srv/jupyterhub
+    environment:
+      DOCKER_NETWORK_NAME: ${COMPOSE_PROJECT_NAME:-rlm-jupyter}_default
+      DOCKER_NOTEBOOK_IMAGE: rlm-singleuser:latest
+      DOCKER_NOTEBOOK_DIR: /home/jovyan/work
+      # Memory limit per user (default 512MB, override in .env)
+      MEM_LIMIT: ${MEM_LIMIT:-512M}
+      # CPU limit per user (default 1.0 CPU)
+      CPU_LIMIT: ${CPU_LIMIT:-1.0}
+      # LLM API keys — passed through to user containers
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_MODEL: ${OPENAI_MODEL:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-}
+      PORTKEY_API_KEY: ${PORTKEY_API_KEY:-}
+      PORTKEY_MODEL: ${PORTKEY_MODEL:-}
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+      VLLM_BASE_URL: ${VLLM_BASE_URL:-}
+    networks:
+      - default
+
+  # Build the single-user image (not a running service)
+  singleuser-build:
+    build:
+      context: ./singleuser
+      dockerfile: Dockerfile
+    image: rlm-singleuser:latest
+    command: ["echo", "Image built successfully"]
+    profiles:
+      - build
+
+networks:
+  default:
+    driver: bridge
+
+volumes:
+  jupyterhub-data:
